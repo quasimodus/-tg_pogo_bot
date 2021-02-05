@@ -21,9 +21,11 @@ response = requests.get(url)
 #     return 'city not found'
 data = json.loads(response.content)
 data_temp = data['main']['temp'] - 273
+data_city = data['name']
 temp = str(math.ceil(data_temp))
 # return parse_weather_data(data)
 print(data)
+print(data_city)
 print(temp)
 
 
@@ -42,7 +44,7 @@ print(temp)
 
 @bot.message_handler(commands=['start', 'help'])
 def main(message):
-    bot.send_message(message.chat.id, 'Температура в городе:    ' + temp)
+    bot.send_message(message.chat.id, 'Город:   ' + data_city + '\n' + 'Температура:    ' + temp)
 
 
 if __name__ == '__main__':
