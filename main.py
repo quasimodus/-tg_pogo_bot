@@ -14,19 +14,27 @@ bot = telebot.TeleBot(config.token)
 #     # bot.reply_to(message, message)
 
 
-url = config.WEATHER_URL.format(city=config.location, token=config.WEATHER_TOKEN)
+url = config.WEATHER_URL.format(city=config.location, token=config.WEATHER_TOKEN)  ### URL запроса
 print(url)
-response = requests.get(url)
+response = requests.get(url)              ### Ответ на запрос
 # if response.status_code != 200:
 #     return 'city not found'
-data = json.loads(response.content)
-data_temp = data['main']['temp'] - 273
-data_city = data['name']
+data = json.loads(response.content)        ### Полученные данные
+
+data_temp = data['main']['temp'] - 273      ### Получение температуры из данных
+data_city = data['name']                   ### Получение города
+data_speed = data['wind']['speed']                   ### Получение города
+
 temp = str(math.ceil(data_temp))
-# return parse_weather_data(data)
+city = data_city
+speed = str(math.ceil(data_speed))
+
+
 print(data)
+
 print(data_city)
 print(temp)
+print(speed)
 
 
 # print('hello')
@@ -41,10 +49,12 @@ print(temp)
 #     return msg
 # print(msg)
 
-
+######  Отправка сообщений
 @bot.message_handler(commands=['start', 'help'])
 def main(message):
-    bot.send_message(message.chat.id, 'Город:   ' + data_city + '\n' + 'Температура:    ' + temp)
+    bot.send_message(message.chat.id, 'Город:   ' + data_city + '\n' + 'Температура:    ' + temp + '\n' + 'Скорость '
+                                                                                                          'ветра:   '
+                     + speed + ' м/сек')
 
 
 if __name__ == '__main__':
