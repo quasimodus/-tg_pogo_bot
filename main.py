@@ -26,6 +26,7 @@ data_feels_like_temp = data['main']['feels_like'] - 273
 data_city = data['name']
 data_speed = data['wind']['speed']
 data_humidity = data['main']['humidity']
+description = data['weather'][0]['main']
 
 temp = str(math.ceil(data_temp))
 feels_like_temp = str(math.ceil(data_feels_like_temp))
@@ -39,13 +40,28 @@ print(data_city)
 print(temp)
 print(feels_like_temp)
 print(speed)
+print(description)
 
 
-######  Отправка сообщений
+if description == 'Sun':
+    description = 'Ясно ☀️☀️☀️'
+    print('Ясно')
+elif description == 'Clouds':
+    description = 'Облачно ☁️☁️☁️'
+    print('Облачно')
+elif description == 'Snow':
+    description = 'Снег ❄️❄️❄️'
+    print('Снег')
+
+
+    ######  Отправка сообщений
+
+
 @bot.message_handler(commands=['start', 'help'])
 def main(message):
     bot.send_message(message.chat.id,
-                     'Город:    ' + data_city + '\n' + 'Температура:    ' + temp + ' °C' + '\n' + 'Ощущается как:    '
+                     '\n' + 'Город:    ' + data_city + '\n' + description + '\n' + 'Температура:    ' + temp
+                     + ' °C' + '\n' + 'Ощущается как:    '
                      + feels_like_temp + ' °C' + '\n' + 'Скорость ветра:    ' + speed + ' м/сек' + '\n'
                      + 'Влажность:    ' + humidity + ' %')
 
