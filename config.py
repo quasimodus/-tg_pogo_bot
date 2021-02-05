@@ -1,4 +1,4 @@
-token = '1607218477:AAGbHIH1qc7pSTejd2-Oq51m5rd10bEXVwI'
+token = '1607218477:AAF5yD9ixAG5RpOphdMzZbLUcw5hKXNICJo'
 
 location = 'Tula'
 WEATHER_TOKEN = 'b1355580cc28d49e90ed35a90ef7172d'

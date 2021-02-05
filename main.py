@@ -1,12 +1,10 @@
 import json
 import math
-
 import telebot
 import config
 import requests
 
 bot = telebot.TeleBot(config.token)
-
 
 url = config.WEATHER_URL.format(city=config.location, token=config.WEATHER_TOKEN)  ### URL запроса
 print(url)
@@ -36,7 +34,6 @@ print(feels_like_temp)
 print(speed)
 print(description)
 
-
 if description == 'Sun':
     description = 'Ясно ☀️☀️☀️'
     print('Ясно')
@@ -47,7 +44,6 @@ elif description == 'Snow':
     description = 'Снег ❄️❄️❄️'
     print('Снег')
 
-
     ######  Отправка сообщений
 
 
@@ -57,7 +53,8 @@ def main(message):
                      '\n' + 'Город:    ' + data_city + '\n' + description + '\n' + 'Температура:    ' + temp
                      + ' °C' + '\n' + 'Ощущается как:    '
                      + feels_like_temp + ' °C' + '\n' + 'Скорость ветра:    ' + speed + ' м/сек' + '\n'
-                     + 'Влажность:    ' + humidity + ' %' + '\n' + 'Источник: https://openweathermap.org')
+                     + 'Влажность:    ' + humidity + ' %' + '\n' + 'Источник: https://openweathermap.org',
+                     disable_web_page_preview=True)
 
 
 if __name__ == '__main__':
