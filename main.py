@@ -4,14 +4,8 @@ import math
 import telebot
 import config
 import requests
-from bs4 import BeautifulSoup
 
 bot = telebot.TeleBot(config.token)
-
-# @bot.message_handler(func=lambda m: True)
-# def echo_all(message):
-#     bot.reply_to(message, 'Погода в городе ' + message.text + ' не плохая')
-#     # bot.reply_to(message, message)
 
 
 url = config.WEATHER_URL.format(city=config.location, token=config.WEATHER_TOKEN)  ### URL запроса
@@ -63,7 +57,7 @@ def main(message):
                      '\n' + 'Город:    ' + data_city + '\n' + description + '\n' + 'Температура:    ' + temp
                      + ' °C' + '\n' + 'Ощущается как:    '
                      + feels_like_temp + ' °C' + '\n' + 'Скорость ветра:    ' + speed + ' м/сек' + '\n'
-                     + 'Влажность:    ' + humidity + ' %')
+                     + 'Влажность:    ' + humidity + ' %' + '\n' + 'Источник: https://openweathermap.org')
 
 
 if __name__ == '__main__':
