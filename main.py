@@ -1,22 +1,46 @@
+import json
+
 import telebot
 import config
 import requests
 from bs4 import BeautifulSoup
 
-# r = requests.get('http://gismeteo.ru/weather-tula-4392')
-# content = r.content
-# html = BeautifulSoup(content, 'html.parser')
+
+def parse_weather_data(data):
+    for elem in data['weather']:
+        weather_state = elem['main']
+    temp = round(data['main']['temp'] - 273.15, 2)
+    city = data['name']
+    msg = f'The weather in {city}: Temp is {temp}, State is {weather_state}'
+    #return msg
+    print(msg)
+
+
+def get_weather():
+    url = config.WEATHER_URL.format(city=config.location, token=config.WEATHER_TOKEN)
+    print(url)
+    response = requests.get(url)
+    # if response.status_code != 200:
+    #     return 'city not found'
+    data = json.loads(response.content)
+    return parse_weather_data(data)
+    #print(data)
+    #print('hello')
+
+
 bot = telebot.TeleBot(config.token)
 
-# for elem in html.select('.tab-content'):
-#     y_data = elem.select('.date ')[0].text
-#     print(y_data)
+# @bot.message_handler(commands=['start', 'help'])
+# def send_welcome(message):
+#     bot.reply_to(message, "Я могу показать погоду если вы введете название города ")
 
 
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    bot.reply_to(message, "Я могу показать погоду ")
+# @bot.message_handler(func=lambda m: True)
+# def echo_all(message):
+#     bot.reply_to(message, 'Погода в городе ' + message.text + ' не плохая')
+#     # bot.reply_to(message, message)
 
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True)
+    # bot.polling(none_stop=True)
+    get_weather()
