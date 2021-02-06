@@ -33,6 +33,7 @@ def get_weather(message):
     data_humidity = data['main']['humidity']
     description = data['weather'][0]['main']
 
+###### Data Preparation
     temp = str(math.ceil(data_temp))
     feels_like_temp = str(math.ceil(data_feels_like_temp))
     city = data_city
@@ -68,8 +69,9 @@ def get_weather(message):
                      '\n' + 'Город:    ' + city + '\n' + description + '\n' + 'Температура:    ' + temp
                      + ' °C' + '\n' + 'Ощущается как:    '
                      + feels_like_temp + ' °C' + '\n' + 'Скорость ветра:    ' + speed + ' м/сек' + '\n'
-                     + 'Влажность:    ' + humidity + ' %' + '\n' + 'Источник: https://openweathermap.org',
-                     disable_web_page_preview=True)
+                     + 'Влажность:    ' + humidity + ' %')
+
+##### '\n' + 'Источник: https://openweathermap.org',disable_web_page_preview=True
 
 
 if __name__ == '__main__':
