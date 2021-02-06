@@ -7,6 +7,11 @@ import requests
 bot = telebot.TeleBot(config.token)
 
 
+@bot.message_handler(commands=['start', 'help'])
+def main(message):
+    bot.send_message(message.chat.id, 'Чтобы узнать погоду, введи назавние города на латинице')
+
+
 
 # @bot.message_handler(content_types=['text'])
 # def send_text(message):
@@ -22,8 +27,8 @@ def get_weather(message):
     url = config.WEATHER_URL.format(city=location, token=config.WEATHER_TOKEN)  ### URL запроса
     print(url)
     response = requests.get(url)  ### Ответ на запрос
-    # if response.status_code != 200:
-    #     return 'city not found'
+    if response.status_code != 200:
+        return 'city not found'
     data = json.loads(response.content)  ### Полученные данные
 
     data_temp = data['main']['temp'] - 273
@@ -47,7 +52,7 @@ def get_weather(message):
     print(speed)
     print(description)
 
-    if description == 'Sun':
+    if description == 'Clear':
         description = 'Ясно ☀️☀️☀️'
         print('Ясно')
     elif description == 'Clouds':
@@ -56,6 +61,9 @@ def get_weather(message):
     elif description == 'Snow':
         description = 'Снег ❄️❄️❄️'
         print('Снег')
+    elif description == 'Rain':
+        description = 'Дождь  🌧🌧🌧'
+        print('Дождь')
 
         ######  Отправка сообщений
 
