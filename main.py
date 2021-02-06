@@ -18,8 +18,11 @@ def get_weather(message):
     url = config.WEATHER_URL.format(city=location, token=config.WEATHER_TOKEN)  ### URL запроса
     print(url)
     response = requests.get(url)  ### Ответ на запрос
+
+###### Bad input Test
     if response.status_code != 200:
         return 'city not found'
+
     data = json.loads(response.content)  ### Полученные данные
 
     ######### Parser
