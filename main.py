@@ -12,15 +12,6 @@ def main(message):
     bot.send_message(message.chat.id, 'Чтобы узнать погоду, введи назавние города на латинице')
 
 
-
-# @bot.message_handler(content_types=['text'])
-# def send_text(message):
-#     if message.text.lower() == 'привет':
-#         bot.send_message(message.chat.id, 'Привет, мой создатель')
-#     elif message.text.lower() == 'пока':
-#         bot.send_message(message.chat.id, 'Прощай, создатель')
-
-
 @bot.message_handler(content_types=['text'])
 def get_weather(message):
     location = message.text.lower()
@@ -31,6 +22,7 @@ def get_weather(message):
         return 'city not found'
     data = json.loads(response.content)  ### Полученные данные
 
+    ######### Parser
     data_temp = data['main']['temp'] - 273
     data_feels_like_temp = data['main']['feels_like'] - 273
     data_city = data['name']
@@ -44,6 +36,7 @@ def get_weather(message):
     speed = str(math.ceil(data_speed))
     humidity = str(data_humidity)
 
+    ###### Test in Console
     print(data)
 
     print(data_city)
@@ -52,6 +45,7 @@ def get_weather(message):
     print(speed)
     print(description)
 
+    ######## Description Weather
     if description == 'Clear':
         description = 'Ясно ☀️☀️☀️'
         print('Ясно')
@@ -65,10 +59,8 @@ def get_weather(message):
         description = 'Дождь  🌧🌧🌧'
         print('Дождь')
 
-        ######  Отправка сообщений
+        ######  Send messages to the user
 
-    # @bot.message_handler(commands=['start', 'help'])
-    # def main(message):
     bot.send_message(message.chat.id,
                      '\n' + 'Город:    ' + city + '\n' + description + '\n' + 'Температура:    ' + temp
                      + ' °C' + '\n' + 'Ощущается как:    '
