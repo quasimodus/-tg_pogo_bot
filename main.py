@@ -9,7 +9,7 @@ bot = telebot.TeleBot(config.token)
 
 @bot.message_handler(commands=['start', 'help'])
 def main(message):
-    bot.send_message(message.chat.id, 'Чтобы узнать погоду, введи назавние города на латинице')
+    bot.send_message(message.chat.id, 'Чтобы узнать погоду, введите назавние города')
 
 
 @bot.message_handler(content_types=['text'])
