@@ -19,7 +19,7 @@ def get_weather(message):
     print(url)
     response = requests.get(url)  ### Ответ на запрос
 
-###### Bad input Test
+    ###### Bad input Test
     if response.status_code != 200:
         return 'city not found'
 
@@ -33,16 +33,18 @@ def get_weather(message):
     data_humidity = data['main']['humidity']
     description = data['weather'][0]['main']
 
-###### Attention block
-    description_temp = str(data_temp)
-    if data_temp < -15:
-        description_temp =  '⚠'
-        print('⚠️')
+    ###### Attention block
+    description_temp = str(data_feels_like_temp)
+    if data_feels_like_temp <= -25:
+        description_temp = '⚠⚠⚠'
+    elif data_feels_like_temp <= -20:
+        description_temp = '⚠⚠'
+    elif data_feels_like_temp <= -15:
+        description_temp = '⚠'
+    elif data_feels_like_temp > -15:
+        description_temp = ''
 
-
-
-
-###### Data Preparation
+    ###### Data Preparation
     temp = str(math.ceil(data_temp))
     feels_like_temp = str(math.ceil(data_feels_like_temp))
     city = data_city
@@ -74,12 +76,15 @@ def get_weather(message):
 
         ######  Send messages to the user
 
-    bot.send_message(message.chat.id,
-                     '\n' + 'Город: ' + city + '\n' + description + '\n' + 'Температура: ' + temp
-                     + ' °C ' + description_temp + '\n' + 'Ощущается как: '
-                     + feels_like_temp + ' °C' + '\n' + 'Скорость ветра: ' + speed + ' м/сек' + '\n'
-                     + 'Влажность: ' + humidity + ' %' + '\n' +
-                     'Источник: https://openweathermap.org',disable_web_page_preview=True)
+    bot.send_message(message.chat.id, '\n'
+                     + 'Город:  ' + city + '\n'
+                     + description + '\n'
+                     + 'Температура:  ' + temp + ' °C ' + '\n'
+                     + 'Ощущается как:  '
+                     + feels_like_temp + ' °C ' + description_temp + '\n'
+                     + 'Скорость ветра:  ' + speed + ' м/сек' + '\n'
+                     + 'Влажность:  ' + humidity + ' %' + '\n'
+                     + 'Источник: https://openweathermap.org', disable_web_page_preview=True)
 
 ##### '\n' + 'Источник: https://openweathermap.org',disable_web_page_preview=True
 
