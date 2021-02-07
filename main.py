@@ -70,13 +70,13 @@ def get_weather(message):
     humidity = str(data_humidity)
 
     ###### Test in Console
-    print(data)
-
-    print(data_city)
-    print(temp)
-    print(feels_like_temp)
-    print(wind_speed)
-    print(description)
+    # print(data)
+    #
+    # print(data_city)
+    # print(temp)
+    # print(feels_like_temp)
+    # print(wind_speed)
+    # print(description)
 
     ######## Description Weather
     if description == 'Clear':
