@@ -7,6 +7,8 @@ import requests
 bot = telebot.TeleBot(config.token)
 
 
+######## Start // Help Commands #######################
+
 @bot.message_handler(commands=['start', 'help'])
 def main(message):
     bot.send_message(message.chat.id, 'Чтобы узнать погоду, введите назавние города')
@@ -15,15 +17,20 @@ def main(message):
 @bot.message_handler(content_types=['text'])
 def get_weather(message):
     location = message.text.lower()
-    url = config.WEATHER_URL.format(city=location, token=config.WEATHER_TOKEN)  ### URL запроса
-    print(url)
-    response = requests.get(url)  ### Ответ на запрос
 
-    ###### Bad input Test
+    ######## URL request #######################
+    url = config.WEATHER_URL.format(city=location, token=config.WEATHER_TOKEN)
+    print(url)
+
+    ######### Response from URL #################
+    response = requests.get(url)
+
+    ######### Bad input Test ##################
     if response.status_code != 200:
         return 'city not found'
 
-    data = json.loads(response.content)  ### Полученные данные
+    ######### Получение данных #################
+    data = json.loads(response.content)
 
     ######### Parser
     data_temp = data['main']['temp'] - 273
@@ -96,6 +103,7 @@ def get_weather(message):
                      + 'Скорость ветра:  ' + wind_speed + ' м/сек ' + description_wind + '\n'
                      + 'Влажность:  ' + humidity + ' %' + '\n'
                      + 'Источник: https://openweathermap.org', disable_web_page_preview=True)
+
 
 ##### '\n' + 'Источник: https://openweathermap.org',disable_web_page_preview=True
 
