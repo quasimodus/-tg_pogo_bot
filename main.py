@@ -62,16 +62,16 @@ def get_weather(message):
 
     ######## Description Weather
     if description == 'Clear':
-        description = 'Ясно ☀️☀️☀️'
+        description = 'Ясно ☀️️'
         print('Ясно')
     elif description == 'Clouds':
-        description = 'Облачно ☁️☁️☁️'
+        description = 'Облачно ☁️️'
         print('Облачно')
     elif description == 'Snow':
-        description = 'Снег ❄️❄️❄️'
+        description = 'Снег ❄️'
         print('Снег')
     elif description == 'Rain':
-        description = 'Дождь  🌧🌧🌧'
+        description = 'Дождь  🌧'
         print('Дождь')
 
         ######  Send messages to the user
